@@ -47,11 +47,13 @@ fun SearchScreen(
             singleLine = true
         )
 
+        Spacer(Modifier.height(8.dp))
+
         state.message?.let {
             Text(
                 text = it,
                 color = Color.Gray,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodyMedium
             )
         }
 

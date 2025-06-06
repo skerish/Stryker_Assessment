@@ -3,13 +3,11 @@ package com.example.strykerassignmentapp.feature
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strykerassignmentapp.domain.usecase.SearchQuestionUseCase
 import kotlinx.coroutines.launch
 import java.io.IOException
-import com.example.strykerassignmentapp.R
 
 class SearchScreenViewModel(
     private val searchQuestionsUseCase: SearchQuestionUseCase
@@ -31,7 +29,7 @@ class SearchScreenViewModel(
     }
 
     fun onQueryChange(newQuery: String) {
-        val message = getMessageForQuery(newQuery)
+        val message = getMessageForQuery(newQuery.trim())
         uiState = if (newQuery.length < 3) {
             uiState.copy(
                 query = newQuery,
@@ -53,6 +51,17 @@ class SearchScreenViewModel(
     }
 
     private fun search(query: String) {
+
+        if (!query.matches(Regex(".*[a-zA-Z0-9]+.*"))) {
+            uiState = uiState.copy(
+                isLoading = false,
+                error = null,
+                results = emptyList(),
+                message = "Please enter a valid search query"
+            )
+            return
+        }
+
         viewModelScope.launch {
             uiState = uiState.copy(isLoading = true, error = null, results = emptyList())
 
@@ -62,10 +71,20 @@ class SearchScreenViewModel(
             val result = searchQuestionsUseCase(query)
 
             uiState = if (result.isSuccess){
-                uiState.copy(
-                    isLoading = false,
-                    results = result.getOrNull().orEmpty()
-                )
+                val results = result.getOrNull().orEmpty()
+                if (results.isEmpty()){
+                    uiState.copy(
+                        isLoading = false,
+                        results = emptyList(),
+                        message = "No result found!"
+                    )
+                }else {
+                    uiState.copy(
+                        isLoading = false,
+                        results = results,
+                        message = null
+                    )
+                }
             }else{
                 val exception = result.exceptionOrNull()
                 val message = when {
