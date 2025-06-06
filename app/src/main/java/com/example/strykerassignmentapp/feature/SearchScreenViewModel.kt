@@ -3,11 +3,13 @@ package com.example.strykerassignmentapp.feature
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.strykerassignmentapp.domain.usecase.SearchQuestionUseCase
 import kotlinx.coroutines.launch
 import java.io.IOException
+import com.example.strykerassignmentapp.R
 
 class SearchScreenViewModel(
     private val searchQuestionsUseCase: SearchQuestionUseCase

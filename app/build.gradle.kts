@@ -69,4 +69,9 @@ dependencies {
 
     implementation(libs.rxjava)
     implementation(libs.rxandroid)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.rxjava)
+    testImplementation(libs.rxkotlin)
+    testImplementation(libs.kotlinx.coroutines.test)
 }
