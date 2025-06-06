@@ -19,3 +19,8 @@ The app features a Stack Overflow question search with a clean architecture, mod
 - Network connectivity monitoring with reactive updates
 - Displays connectivity banners for online/offline states
 - Clean architecture with separation of concerns
+
+
+## 🎥 Demo
+
+[![Watch the video](https://img.youtube.com/vi/toL5jiuVC2k/0.jpg)](https://youtube.com/shorts/toL5jiuVC2k)
